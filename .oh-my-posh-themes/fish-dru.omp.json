@@ -1,0 +1,85 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": " {{ .Meaning }}",
+          "type": "exit"
+        },
+        {
+          "foreground": "#100e23",
+          "style": "plain",
+          "template": " \uf0e7 ",
+          "type": "root"
+        },
+        {
+          "background": "#ffffff",
+          "foreground": "#100e23",
+          "template": " {{ .UserName }} ",
+          "type": "session",
+          "leading_diamond": "\ue0b6",
+          "style": "diamond",
+          "trailing_diamond": "\ue0b0"
+        },
+        {
+          "background": "#007ACC",
+          "foreground": "#ffffff",
+          "properties": {
+            "home_icon": "\uf7db",
+            "folder_icon": "\uf115",
+            "folder_separator_icon": " \ue0b1 ",
+            "style": "full"
+          },
+          "style": "plain",
+          "template": "<transparent>\ue0b0</> {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "background": "#007ACC",
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#ffffff>\ue0b1</> {{ .HEAD }} ",
+          "type": "git"
+        },
+        {
+          "foreground": "#007ACC",
+          "style": "plain",
+          "template": "\ue0b0 ",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#21c7c7",
+          "style": "plain",
+          "template": "\u2570\u2500",
+          "type": "text"
+        },
+        {
+          "foreground": "#e0f8ff",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#ef5350{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\ue285\ufb00 ",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 2
+}

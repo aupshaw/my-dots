@@ -1,0 +1,56 @@
+# GET PULL ALL ON ALL SUB REPOS
+git-pull-all () {
+	pushd $RECO_DIR
+	#ls -R -d */.git | cut -d'.' -f1 | xargs -I{} bash -c "echo {} && git -C {} pull"
+    for dir in $(find . -name ".git")
+	    do cd ${dir%/*}
+	        echo $PWD
+	        git pull
+	        printf "\n"
+	        cd - > /dev/null
+	    done
+    popd
+}
+
+# CLOSE ACTIVE PORTS
+kill-port () {
+	echo "killing active ports..."
+	pkill -f "port-forward"
+	pkill -9 -f "kubectl proxy".
+}
+
+# DOWNLOAD A FILE TO BASE64
+downloadFile () {
+	if [ $# -ne 1 ]; then
+	  echo "Usage: downloadFile pathToFile1 pathToFile2 ..."
+	  exit 1
+	fi
+	for fn in "$@"
+	do
+	  if [ -r "$fn" ] ; then
+	    printf '\033]1337;File=name='`echo -n "$fn" | base64`";"
+	    wc -c "$fn" | awk '{printf "size=%d",$1}'
+	    printf ":"
+	    base64 < "$fn"
+	    printf '\a'
+	  else
+	    echo File $fn does not exist or is not readable.
+	  fi
+	done
+}
+
+#CHECK IF ARCHITECTURE IS M1
+archIsM1 () {
+	sysctl -n machdep.cpu.brand_string | grep -i "M1" >/dev/null; echo $?
+}
+
+# RSYNC - ARCHIVE
+#archive-home-directory () {
+#	EXCL-FILE=~/rsync-exclusions
+#	if [ -r "$EXCL-FILE" ]
+#	then
+#		rsync -av ~/ ~/onedrive/OneDrive\ -\ UHG/rsync-target --exclude-from=$EXCL-FILE --log-file=$"archive_`date "+%Y%m%d-%H%M%S"`.log" --dry-run
+#	else
+#		echo "Exclusion file does not exist - no action taken"
+#	fi
+#}
