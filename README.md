@@ -1,0 +1,2 @@
+# my-dots
+.bashrc etc.
